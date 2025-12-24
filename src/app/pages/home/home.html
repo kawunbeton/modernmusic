@@ -1,0 +1,9 @@
+<div class="container py-4">
+  <h2 class="mb-4 text-center">Популярні треки</h2>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    <div class="col" *ngFor="let song of songs">
+      <app-song-card [song]="song"></app-song-card>
+    </div>
+  </div>
+</div>

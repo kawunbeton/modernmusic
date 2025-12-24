@@ -1,3 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+
 @use "bootstrap/scss/bootstrap";
 @import "bootstrap-icons/font/bootstrap-icons.css";
+
+/* Custom Theme Colors */
+:root {
+    --theme-purple: #8A2BE2;
+    --neon-green: #39ff14;
+    --neon-blue: #00c3ff;
+}
+
+/* Purple Button Utility */
+.btn-purple {
+    background-color: var(--theme-purple);
+    color: white;
+    border: 1px solid var(--theme-purple);
+    
+    &:hover {
+        background-color: #7016c4;
+        color: white;
+    }
+}
+
+.btn-outline-purple {
+    color: var(--theme-purple);
+    border-color: var(--theme-purple);
+
+    &:hover {
+        background-color: var(--theme-purple);
+        color: white;
+    }
+}
+
+/* Text Utility */
+.text-purple {
+    color: var(--theme-purple) !important;
+}
