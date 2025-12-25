@@ -1,1 +1,59 @@
-<p>song-details works!</p>
+<div class="container py-5" *ngIf="song; else notFound">
+  
+  <!-- Кнопка "Назад" -->
+  <button routerLink="/" class="btn btn-outline-secondary mb-4">
+    <i class="bi bi-arrow-left"></i> Назад до списку
+  </button>
+
+  <div class="row g-5">
+    <!-- Ліва колонка: Обкладинка -->
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0">
+        <img [src]="song.imageUrl" class="img-fluid rounded" [alt]="song.title">
+        
+        <!-- Бейджик статусу -->
+        <div class="mt-3 text-center">
+          <span *ngIf="song.isCover" class="badge bg-success fs-6">Кавер</span>
+          <span *ngIf="!song.isCover" class="badge bg-primary fs-6">Оригінал</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Права колонка: Інформація -->
+    <div class="col-md-8">
+      <h1 class="display-4 fw-bold text-purple">{{ song.title }}</h1>
+      <h3 class="text-muted mb-4">{{ song.artist }}</h3>
+
+      <div class="mb-4">
+        <span class="badge bg-secondary me-2 fs-6">{{ song.genre }}</span>
+        <span *ngFor="let tag of song.tags" class="badge bg-light text-dark border me-1">
+          #{{ tag }}
+        </span>
+      </div>
+
+      <p class="lead">
+        {{ song.description || 'Опис відсутній. Ви можете прослухати музику нижче.' }}
+      </p>
+
+      <!-- Відео плеєр -->
+      <div class="ratio ratio-16x9 mt-5 shadow rounded overflow-hidden" *ngIf="safeVideoUrl">
+        <iframe 
+          [src]="safeVideoUrl" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Шаблон для помилки, якщо пісню не знайдено -->
+<ng-template #notFound>
+  <div class="text-center py-5">
+    <h2>Пісню не знайдено</h2>
+    <button routerLink="/" class="btn btn-purple mt-3">На головну</button>
+  </div>
+</ng-template>
