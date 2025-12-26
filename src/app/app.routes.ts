@@ -1,4 +1,4 @@
-import { authGuard } from './guards/auth.guard'; // Імпорт гварда
+import { authGuard } from './guards/auth.guard';
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
 import { SongDetails } from './pages/song-details/song-details';

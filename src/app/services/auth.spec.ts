@@ -1,18 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { AuthService } from './auth';
-import { Auth } from '@angular/fire/auth'; // Правильний імпорт з бібліотеки
+import { Auth } from '@angular/fire/auth';
 
 describe('AuthService', () => {
   let service: AuthService;
 
-  // Створюємо пустий об'єкт, щоб обдурити тест (нам не треба справжній Firebase тут)
+  // Створення пустого об'єкту
   const authMock = {}; 
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         AuthService,
-        // Підміняємо справжній Auth на наш фейковий
+        // Підміна справжнього Auth на фейковий
         { provide: Auth, useValue: authMock }
       ]
     });
