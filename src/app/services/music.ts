@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, collectionData, query, where, getDocs, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, query,
+         where, getDocs, doc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Observable, from, map } from 'rxjs';
 import { Song } from '../models/song';
 
@@ -97,5 +98,32 @@ export class MusicService {
     } catch (e) {
       return 'https://placehold.co/600x400/8A2BE2/FFFFFF?text=No+Image';
     }
+  }
+  
+   // Додавання нової пісні
+  async addSong(song: Song): Promise<void> {
+    // Генеруємо унікальний ID (використовуємо час, щоб було швидко і просто)
+    const newId = Date.now();
+    song.id = newId; 
+    
+    // Якщо картинки немає, пробуємо витягнути з YouTube
+    if (!song.imageUrl && song.sourceUrl) {
+      song.imageUrl = this.getYouTubeThumbnail(song.sourceUrl);
+    }
+
+    // Зберігаємо документ з іменем song_ID
+    const docRef = doc(this.songsCollection, `song_${newId}`);
+    return setDoc(docRef, song);
+  }
+
+  // Оновлення існуючої пісні
+  async updateSong(song: Song): Promise<void> {
+    if (!song.imageUrl && song.sourceUrl) {
+      song.imageUrl = this.getYouTubeThumbnail(song.sourceUrl);
+    }
+    
+    // Знаходимо документ за його ID і оновлюємо
+    const docRef = doc(this.songsCollection, `song_${song.id}`);
+    return updateDoc(docRef, { ...song });
   }
 }

@@ -1,9 +1,12 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
-import { SongDetails } from './pages/song-details/song-details'; // Імпорт компонента деталей
+import { SongDetails } from './pages/song-details/song-details';
+import { SongForm } from './pages/song-form/song-form'; // Імпорт
 
 export const routes: Routes = [
-  { path: '', component: Home },                // Маршрут для головної сторінки
-  { path: 'song/:id', component: SongDetails }, // Маршрут для сторінки деталей з динамічним ID
-  { path: '**', redirectTo: '' }                // Перенаправлення на головну, якщо маршрут не знайдено
+  { path: '', component: Home },
+  { path: 'song/new', component: SongForm },      // Сторінка створення
+  { path: 'song/edit/:id', component: SongForm }, // Сторінка редагування
+  { path: 'song/:id', component: SongDetails },
+  { path: '**', redirectTo: '' }
 ];
