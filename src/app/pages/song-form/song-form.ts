@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'; // Для форм
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MusicService } from '../../services/music';
 import { Song } from '../../models/song';
@@ -28,26 +28,25 @@ export class SongForm implements OnInit {
       title: ['', [Validators.required, Validators.minLength(2)]],
       artist: ['', Validators.required],
       genre: ['', Validators.required],
-      sourceUrl: ['', Validators.required], // Посилання на YouTube
-      imageUrl: [''], // Картинка (необов'язково, бо генерується сама)
+      sourceUrl: ['', Validators.required],
+      imageUrl: [''],
       description: [''],
-      tagsString: [''], // Допоміжне поле для введення тегів через кому
+      tagsString: [''],
       isCover: [false]
     });
   }
 
   async ngOnInit() {
-    // Перевіряємо, чи є ID в URL (чи це редагування)
     const idString = this.route.snapshot.paramMap.get('id');
     
     if (idString) {
       this.isEditMode = true;
       this.songId = Number(idString);
       
-      // Завантажуємо дані пісні
+      // Завантаження даних пісні
       const song = await this.musicService.getSongById(this.songId);
       if (song) {
-        // Заповнюємо форму даними (перетворюємо масив тегів у рядок)
+        // Заповнення форму даними
         this.songForm.patchValue({
           ...song,
           tagsString: song.tags ? song.tags.join(', ') : ''

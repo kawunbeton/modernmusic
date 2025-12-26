@@ -13,20 +13,30 @@
             <!-- Назва -->
             <div class="mb-3">
               <label class="form-label">Назва пісні</label>
-              <input type="text" class="form-control" formControlName="title" placeholder="Введіть назву">
+              <input type="text" 
+                  class="form-control"
+                  formControlName="title" 
+                  placeholder="Введіть назву">
             </div>
 
-            <!-- Виконавець -->
+            <!-- Автор -->
             <div class="mb-3">
-              <label class="form-label">Виконавець</label>
-              <input type="text" class="form-control" formControlName="artist" placeholder="Введіть виконавця">
+              <label class="form-label">Автор</label>
+              <input type="text"
+                  class="form-control" 
+                  formControlName="artist" 
+                  placeholder="Введіть автора треку">
             </div>
 
             <div class="row">
               <!-- Жанр -->
               <div class="col-md-6 mb-3">
                 <label class="form-label">Жанр</label>
-                <input type="text" class="form-control" formControlName="genre" list="genreOptions" placeholder="Оберіть або введіть свій">
+                <input type="text"
+                    class="form-control"
+                    formControlName="genre" 
+                    list="genreOptions"
+                    placeholder="Оберіть жанр або введіть свій">
                 
                 <!-- Список підказок -->
                 <datalist id="genreOptions">
@@ -55,14 +65,20 @@
             <!-- YouTube посилання -->
             <div class="mb-3">
               <label class="form-label">YouTube посилання</label>
-              <input type="text" class="form-control" formControlName="sourceUrl" placeholder="https://youtube.com/watch?v=...">
+              <input type="text"
+                  class="form-control" 
+                  formControlName="sourceUrl" 
+                  placeholder="https://youtube.com/watch?v=...">
               <div class="form-text">Картинка буде створена автоматично з відео</div>
             </div>
 
             <!-- Теги -->
             <div class="mb-3">
               <label class="form-label">Теги (через кому)</label>
-              <input type="text" class="form-control" formControlName="tagsString" placeholder="ukr, sad, eurovision">
+              <input type="text" 
+                  class="form-control" 
+                  formControlName="tagsString" 
+                  placeholder="ukr, sad, eurovision">
             </div>
 
             <!-- Опис -->

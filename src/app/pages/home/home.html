@@ -1,9 +1,57 @@
 <div class="container py-4">
-  <h2 class="mb-4 text-center">Популярні треки</h2>
+  
+  <div class="row mb-5 justify-content-center">
+    <div class="col-lg-8 text-center">
+      <h2 class="mb-4 fw-bold">Пошук музики</h2>
+      
+      <!-- Пошук та Вибір жанру -->
+      <div class="input-group input-group-lg shadow-sm">
+        
+        <!-- Іконка -->
+        <span class="input-group-text bg-white border-end-0">
+          <i class="bi bi-search text-muted"></i>
+        </span>
+        
+        <!-- Текстовий пошук -->
+        <input 
+          type="text" 
+          class="form-control border-start-0" 
+          placeholder="Введіть назву, автора або тег..." 
+          [(ngModel)]="searchTerm" 
+          (input)="filterSongs()">
 
+        <!-- Випадаючий список жанрів -->
+        <select 
+          class="form-select" 
+          style="max-width: 200px;" 
+          [(ngModel)]="selectedGenre" 
+          (change)="filterSongs()">
+          
+          <option value="">Всі жанри</option>
+          <!-- Angular створює варіанти вибору для кожного знайденого жанру -->
+          <option *ngFor="let genre of genres" [value]="genre">
+            {{ genre }}
+          </option>
+        
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Список пісень (без змін) -->
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-    <div class="col" *ngFor="let song of songs">
+    <div class="col" *ngFor="let song of filteredSongs">
       <app-song-card [song]="song"></app-song-card>
     </div>
   </div>
+  
+  <!-- Повідомлення "Не знайдено" (без змін) -->
+  <div class="text-center py-5" *ngIf="filteredSongs.length === 0">
+    <h4 class="text-muted">За вашим запитом нічого не знайдено 😔</h4>
+    <button class="btn btn-outline-purple mt-2" (click)="searchTerm = ''; selectedGenre = ''; filterSongs()">
+      Скинути фільтри
+    </button>
+  </div>
+
 </div>

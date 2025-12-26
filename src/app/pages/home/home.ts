@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { SongCard } from '../../components/song-card/song-card';
 import { Song } from '../../models/song';
 import { MusicService } from '../../services/music';
@@ -7,12 +8,20 @@ import { MusicService } from '../../services/music';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, SongCard],
+  imports: [CommonModule, SongCard, FormsModule],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
+
 export class Home implements OnInit {
-  songs: Song[] = [];
+  allSongs: Song[] = [];
+  filteredSongs: Song[] = [];
+  
+  // Додавання масиву для списку жанрів
+  genres: string[] = []; 
+
+  searchTerm: string = '';
+  selectedGenre: string = '';
 
   constructor(
     private musicService: MusicService,
@@ -21,18 +30,33 @@ export class Home implements OnInit {
 
   async ngOnInit() {
     try {
-      this.songs = await this.musicService.getSongs();
+      this.allSongs = await this.musicService.getSongs();
+      this.allSongs.sort((a, b) => a.id - b.id);
       
-      // Сортування даних
-      this.songs.sort((a, b) => a.id - b.id);
-      
-      console.log('Пісні отримано:', this.songs);
+      // Витягування унікальних жанрів з існуючих карток
+      const uniqueGenres = new Set(this.allSongs.map(s => s.genre));
+      this.genres = Array.from(uniqueGenres).sort();
 
-      // Примусове оновлення екрану
+      this.filteredSongs = this.allSongs;
       this.cdr.detectChanges();
-      
     } catch (error) {
       console.error('Помилка отримання пісень:', error);
     }
+  }
+
+  // Метод фільтрації
+  filterSongs() {
+    const term = this.searchTerm.toLowerCase().trim();
+
+    this.filteredSongs = this.allSongs.filter(song => {
+      const matchesGenre = this.selectedGenre ? song.genre === this.selectedGenre : true;
+      
+      const matchesSearch = 
+        song.title.toLowerCase().includes(term) || 
+        song.artist.toLowerCase().includes(term) ||
+        (song.tags && song.tags.some(tag => tag.toLowerCase().includes(term)));
+
+      return matchesGenre && matchesSearch;
+    });
   }
 }
