@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MusicService } from '../../services/music';
 import { Song } from '../../models/song';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-song-details',
@@ -20,7 +21,8 @@ export class SongDetails implements OnInit {
     private route: ActivatedRoute,
     private musicService: MusicService,
     private sanitizer: DomSanitizer,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public authService: AuthService // Додано authService
   ) {}
 
   async ngOnInit() {

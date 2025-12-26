@@ -1,0 +1,59 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      
+      <div class="card shadow border-0">
+        <div class="card-body p-4">
+          <h2 class="text-center mb-4 text-purple">Вхід</h2>
+
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input 
+                type="email" 
+                class="form-control" 
+                formControlName="email"
+                [class.is-invalid]="email?.invalid && email?.touched">
+              
+              <div class="invalid-feedback" *ngIf="email?.errors?.['required']">
+                Введіть email.
+              </div>
+              <div class="invalid-feedback" *ngIf="email?.errors?.['email']">
+                Некоректний формат email.
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Пароль</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                formControlName="password"
+                [class.is-invalid]="password?.invalid && password?.touched">
+              
+              <div class="invalid-feedback" *ngIf="password?.errors?.['required']">
+                Введіть пароль.
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-purple w-100 btn-lg mb-3"
+                [disabled]="loginForm.invalid">
+              Увійти
+            </button>
+
+            <div class="text-center">
+              <small>Немає акаунту? <a routerLink="/register" class="text-decoration-none">Зареєструватися</a></small>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -29,6 +29,10 @@ export class Home implements OnInit {
   ) {}
 
   async ngOnInit() {
+
+    // Розкоментуйте рядок нижче, щоб завантажити тестові дані в пусту базу:
+    // await this.musicService.uploadMockData(); 
+
     try {
       this.allSongs = await this.musicService.getSongs();
       this.allSongs.sort((a, b) => a.id - b.id);

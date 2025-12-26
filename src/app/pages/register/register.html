@@ -1,0 +1,86 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      
+      <div class="card shadow border-0">
+        <div class="card-body p-4">
+          <h2 class="text-center mb-4 text-purple">Реєстрація</h2>
+
+          <!-- Загальна помилка сервера -->
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            
+            <!-- Email -->
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input 
+                type="email" 
+                class="form-control" 
+                formControlName="email" 
+                placeholder="example@mail.com"
+                [class.is-invalid]="email?.invalid && email?.touched">
+              
+              <!-- Блок помилок для Email -->
+              <div class="invalid-feedback" *ngIf="email?.errors?.['required']">
+                Email є обов'язковим полем.
+              </div>
+              <div class="invalid-feedback" *ngIf="email?.errors?.['email']">
+                Введіть коректний email.
+              </div>
+            </div>
+
+            <!-- Пароль -->
+            <div class="mb-3">
+              <label class="form-label">Пароль</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                formControlName="password" 
+                placeholder="Мінімум 6 символів"
+                [class.is-invalid]="password?.invalid && password?.touched">
+              
+              <div class="invalid-feedback" *ngIf="password?.errors?.['required']">
+                Пароль є обов'язковим.
+              </div>
+              <div class="invalid-feedback" *ngIf="password?.errors?.['minlength']">
+                Пароль має містити мінімум 6 символів.
+              </div>
+            </div>
+
+            <!-- Підтвердження паролю -->
+            <div class="mb-4">
+              <label class="form-label">Підтвердження паролю</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                formControlName="confirmPassword"
+                [class.is-invalid]="confirmPassword?.invalid && confirmPassword?.touched">
+              
+              <div class="invalid-feedback" *ngIf="confirmPassword?.errors?.['required']">
+                Підтвердіть пароль.
+              </div>
+              <!-- Помилка неспівпадіння паролів -->
+              <div class="invalid-feedback" *ngIf="confirmPassword?.errors?.['mismatch']">
+                Паролі не співпадають.
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-purple w-100 btn-lg mb-3"
+                [disabled]="registerForm.invalid">
+              Зареєструватися
+            </button>
+
+            <div class="text-center">
+              <small>Вже маєте акаунт? <a routerLink="/login" class="text-decoration-none">Увійти</a></small>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

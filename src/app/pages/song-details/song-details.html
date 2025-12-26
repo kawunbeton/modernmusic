@@ -7,8 +7,10 @@
     </button>
 
     <!-- Кнопка редагування -->
-    <a [routerLink]="['/song/edit', song.id]" class="btn btn-outline-primary">
-        <i class="bi bi-pencil"></i> Редагувати
+    <a *ngIf="authService.user$ | async" 
+        [routerLink]="['/song/edit', song.id]" 
+        class="btn btn-outline-primary">
+      <i class="bi bi-pencil"></i> Редагувати
     </a>
 </div>
 
