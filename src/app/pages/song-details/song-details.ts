@@ -5,11 +5,12 @@ import { MusicService } from '../../services/music';
 import { Song } from '../../models/song';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AuthService } from '../../services/auth';
+import { SummaryPipe } from '../../pipes/summary-pipe';
 
 @Component({
   selector: 'app-song-details',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, SummaryPipe],
   templateUrl: './song-details.html',
   styleUrl: './song-details.scss'
 })
